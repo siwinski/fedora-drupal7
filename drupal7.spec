@@ -1,7 +1,7 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
 Version:  7.2
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -88,6 +88,9 @@ rm -rf %{buildroot}
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/default/
 
 %changelog
+* Fri Jun 17 2011 Jon Ciesla <limb@jcomserv.net> - 7.2-2
+- Bump and rebuild for BZ 712251.
+
 * Thu May 26 2011 Jon Ciesla <limb@jcomserv.net> - 7.2-1
 - New upstream, SA-CORE-2011-001.
 
