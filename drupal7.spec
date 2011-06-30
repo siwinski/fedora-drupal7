@@ -1,7 +1,7 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
-Version:  7.2
-Release:  2%{?dist}
+Version:  7.4
+Release:  1%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -12,7 +12,7 @@ Source1: %{name}.conf
 Source2: %{name}-README.fedora
 Source3: %{name}-cron
 Source4: %{name}-files-migrator.sh
-Patch0:  %{name}-7.0-scripts-noshebang.patch
+Patch0:  %{name}-7.4-scripts-noshebang.patch
 
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -45,8 +45,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/httpd
 mkdir -p %{buildroot}%{_sysconfdir}/httpd/conf.d
 cp -pr %SOURCE1 %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
-mkdir -p %{buildroot}%{_sysconfdir}/%{name}/modules
-mkdir -p %{buildroot}%{_sysconfdir}/%{name}/themes
 mv %{buildroot}%{drupaldir}/sites/* %{buildroot}%{_sysconfdir}/%{name}
 rmdir %{buildroot}%{drupaldir}/sites
 ln -s ../../..%{_sysconfdir}/%{name} %{buildroot}%{drupaldir}/sites
@@ -88,6 +86,10 @@ rm -rf %{buildroot}
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/default/
 
 %changelog
+* Thu Jun 30 2011 Jon Ciesla <limb@jcomserv.net> - 7.4-1
+- New upstream, SA-CORE-2011-002, BZ 717874.
+- Dropped unused dirs in /etc/drupal7/, BZ 703736.
+
 * Fri Jun 17 2011 Jon Ciesla <limb@jcomserv.net> - 7.2-2
 - Bump and rebuild for BZ 712251.
 

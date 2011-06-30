@@ -1,0 +1,54 @@
+diff -U3 -r drupal-7.4.orig/scripts/code-clean.sh drupal-7.4/scripts/code-clean.sh
+--- drupal-7.4.orig/scripts/code-clean.sh	2011-06-29 20:20:10.000000000 -0500
++++ drupal-7.4/scripts/code-clean.sh	2011-06-30 07:24:03.000000000 -0500
+@@ -1,4 +1,3 @@
+-#!/bin/sh
+ 
+ find . -name "*~" -type f | xargs rm -f
+ find . -name ".#*" -type f | xargs rm -f
+diff -U3 -r drupal-7.4.orig/scripts/cron-curl.sh drupal-7.4/scripts/cron-curl.sh
+--- drupal-7.4.orig/scripts/cron-curl.sh	2011-06-29 20:20:10.000000000 -0500
++++ drupal-7.4/scripts/cron-curl.sh	2011-06-30 07:24:06.000000000 -0500
+@@ -1,3 +1,2 @@
+-#!/bin/sh
+ 
+ curl --silent --compressed http://example.com/cron.php
+diff -U3 -r drupal-7.4.orig/scripts/cron-lynx.sh drupal-7.4/scripts/cron-lynx.sh
+--- drupal-7.4.orig/scripts/cron-lynx.sh	2011-06-29 20:20:10.000000000 -0500
++++ drupal-7.4/scripts/cron-lynx.sh	2011-06-30 07:24:09.000000000 -0500
+@@ -1,3 +1,2 @@
+-#!/bin/sh
+ 
+ /usr/bin/lynx -source http://example.com/cron.php > /dev/null 2>&1
+diff -U3 -r drupal-7.4.orig/scripts/drupal.sh drupal-7.4/scripts/drupal.sh
+--- drupal-7.4.orig/scripts/drupal.sh	2011-06-29 20:20:10.000000000 -0500
++++ drupal-7.4/scripts/drupal.sh	2011-06-30 07:24:15.000000000 -0500
+@@ -1,4 +1,3 @@
+-#!/usr/bin/env php
+ <?php
+ 
+ /**
+diff -U3 -r drupal-7.4.orig/scripts/dump-database-d6.sh drupal-7.4/scripts/dump-database-d6.sh
+--- drupal-7.4.orig/scripts/dump-database-d6.sh	2011-06-29 20:20:10.000000000 -0500
++++ drupal-7.4/scripts/dump-database-d6.sh	2011-06-30 07:24:19.000000000 -0500
+@@ -1,4 +1,3 @@
+-#!/usr/bin/env php
+ <?php
+ 
+ /**
+diff -U3 -r drupal-7.4.orig/scripts/generate-d6-content.sh drupal-7.4/scripts/generate-d6-content.sh
+--- drupal-7.4.orig/scripts/generate-d6-content.sh	2011-06-29 20:20:10.000000000 -0500
++++ drupal-7.4/scripts/generate-d6-content.sh	2011-06-30 07:24:22.000000000 -0500
+@@ -1,4 +1,3 @@
+-#!/usr/bin/env php
+ <?php
+ 
+ /**
+diff -U3 -r drupal-7.4.orig/scripts/password-hash.sh drupal-7.4/scripts/password-hash.sh
+--- drupal-7.4.orig/scripts/password-hash.sh	2011-06-29 20:20:10.000000000 -0500
++++ drupal-7.4/scripts/password-hash.sh	2011-06-30 07:24:24.000000000 -0500
+@@ -1,4 +1,3 @@
+-#!/usr/bin/php
+ <?php
+ 
+ /**
