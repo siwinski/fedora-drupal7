@@ -1,6 +1,6 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
-Version:  7.6
+Version:  7.7
 Release:  1%{?dist}
 Summary: An open-source content-management platform
 
@@ -74,7 +74,7 @@ rm -rf %{buildroot}
 %exclude %{drupaldir}/UPGRADE.txt
 %exclude %{drupaldir}/COPYRIGHT.txt
 %exclude %{drupaldir}/README.txt
-%dir %{_sysconfdir}/%{name}/*
+%dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/all
 %exclude %{_sysconfdir}/%{name}/all/README.txt
 %config(noreplace) %{_sysconfdir}/%{name}/default
@@ -86,6 +86,9 @@ rm -rf %{buildroot}
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/default/
 
 %changelog
+* Sun Aug  7 2011 Paul W. Frields <stickster@gmail.com> - 7.7-1
+- New upstream, fixed version string only.
+
 * Wed Jul 27 2011 Jon Ciesla <limb@jcomserv.net> - 7.6-1
 - New upstream, SA-CORE-2011-003, BZ 726243.
 
