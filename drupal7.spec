@@ -1,7 +1,7 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
-Version:  7.10
-Release:  2%{?dist}
+Version:  7.12
+Release:  1%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -86,6 +86,9 @@ rm -rf %{buildroot}
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/default/
 
 %changelog
+* Thu Feb 02 2012 Jon Ciesla <limburgher@gmail.com> - 7.12-1
+- New upstream.
+
 * Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 7.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
