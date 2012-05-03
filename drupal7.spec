@@ -1,6 +1,6 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
-Version:  7.12
+Version:  7.14
 Release:  1%{?dist}
 Summary: An open-source content-management platform
 
@@ -86,6 +86,9 @@ rm -rf %{buildroot}
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/default/
 
 %changelog
+* Thu May  3 2012 Paul W. Frields <stickster@gmail.com> - 7.14-1
+- New upstream. (#818538)
+
 * Thu Feb 02 2012 Jon Ciesla <limburgher@gmail.com> - 7.12-1
 - New upstream.
 
