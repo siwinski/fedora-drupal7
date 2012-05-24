@@ -1,7 +1,7 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
 Version:  7.14
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -13,6 +13,7 @@ Source2: %{name}-README.fedora
 Source3: %{name}-cron
 Source4: %{name}-files-migrator.sh
 Patch0:  %{name}-7.4-scripts-noshebang.patch
+Patch1:  drupal-7.14-CVE-2012-2922.patch
 
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -29,6 +30,7 @@ configurable, skinnable, and secure.
 %setup -q -n drupal-%{version}
 
 %patch0 -p1
+%patch1 -p0
 
 chmod -x scripts/drupal.sh
 chmod -x scripts/password-hash.sh
@@ -86,6 +88,9 @@ rm -rf %{buildroot}
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/default/
 
 %changelog
+* Thu May 24 2012 Jon Ciesla <limburgher@gmail.com> - 7.14-2
+- Patch for CVE-2012-2922, BZ 824631, BZ 824632.
+
 * Thu May  3 2012 Paul W. Frields <stickster@gmail.com> - 7.14-1
 - New upstream. (#818538)
 
