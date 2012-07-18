@@ -1,7 +1,7 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
 Version:  7.14
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -88,6 +88,9 @@ rm -rf %{buildroot}
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/default/
 
 %changelog
+* Wed Jul 18 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 7.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Thu May 24 2012 Jon Ciesla <limburgher@gmail.com> - 7.14-2
 - Patch for CVE-2012-2922, BZ 824631, BZ 824632.
 
