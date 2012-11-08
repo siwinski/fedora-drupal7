@@ -1,7 +1,7 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
 Version:  7.17
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -66,7 +66,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc CHANGELOG.txt INSTALL* LICENSE* MAINTAINERS.txt UPGRADE.txt %{name}-README.fedora sites/all/README.txt %{name}-files-migrator.sh
+%doc CHANGELOG.txt INSTALL* LICENSE* MAINTAINERS.txt UPGRADE.txt %{name}-README.fedora sites/README.txt %{name}-files-migrator.sh
 %doc COPYRIGHT.txt README.txt example.sites.php
 %{drupaldir}
 %exclude %{drupaldir}/CHANGELOG.txt
@@ -78,7 +78,7 @@ rm -rf %{buildroot}
 %exclude %{drupaldir}/README.txt
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/all
-%exclude %{_sysconfdir}/%{name}/all/README.txt
+%exclude %{_sysconfdir}/%{name}/README.txt
 %config(noreplace) %{_sysconfdir}/%{name}/default
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/%{name}*.conf
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/%{name}*.htaccess
@@ -88,6 +88,9 @@ rm -rf %{buildroot}
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/default/
 
 %changelog
+* Thu Nov 8 2012 Peter Borsa <peter.borsa@gmail.com> - 7.17-2
+- Fix README.txt location.
+
 * Thu Nov 8 2012 Peter Borsa <peter.borsa@gmail.com> - 7.17-1
 - New upstream.
 
