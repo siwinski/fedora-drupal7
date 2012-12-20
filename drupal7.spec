@@ -1,7 +1,7 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
-Version:  7.17
-Release:  2%{?dist}
+Version:  7.18
+Release:  1%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -88,6 +88,9 @@ rm -rf %{buildroot}
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/default/
 
 %changelog
+* Thu Dec 20 2012 Jon Ciesla <limburgher@gmail.com> - 7.18-1
+- 7.18.
+
 * Thu Nov 8 2012 Peter Borsa <peter.borsa@gmail.com> - 7.17-2
 - Fix README.txt location.
 
