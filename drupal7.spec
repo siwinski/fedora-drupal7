@@ -1,6 +1,6 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
-Version:  7.18
+Version:  7.19
 Release:  1%{?dist}
 Summary: An open-source content-management platform
 
@@ -88,6 +88,9 @@ rm -rf %{buildroot}
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/default/
 
 %changelog
+* Thu Jan 17 2013 Jon Ciesla <limburgher@gmail.com> - 7.19-1
+- 7.19, SA-CORE-2013-001.
+
 * Thu Dec 20 2012 Jon Ciesla <limburgher@gmail.com> - 7.18-1
 - 7.18.
 
