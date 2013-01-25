@@ -71,3 +71,11 @@ Patches to the script are welcome!
 There are some drupal modules in Fedora.  These will install in 
 /usr/share/drupal7/modules, and you should install your modules there as well.
 
+6. Cron job
+
+By default, the drupal cron job is not executed. The log shows
+'Cron could not run because an invalid key was used.'
+This happens because cron invocation is protected by a cron_key parameter.
+
+The drupal7 rpm includes a /etc/cron.hourly/drupal7 file, which must be edited
+to include the cron_key parameter.
