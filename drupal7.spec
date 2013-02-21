@@ -1,7 +1,7 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
-Version:  7.19
-Release:  2%{?dist}
+Version:  7.20
+Release:  1%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -88,6 +88,9 @@ rm -rf %{buildroot}
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/default/
 
 %changelog
+* Thu Feb 21 2013 Paul W. Frields <stickster@gmail.com> - 7.20-1
+- 7.20, SA-CORE-2013-002 (#913403)
+
 * Fri Jan 25 2013 Jon Ciesla <limburgher@gmail.com> - 7.19-2
 - README update for cron_key, BZ 902234.
 
