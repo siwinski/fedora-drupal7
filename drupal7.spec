@@ -1,6 +1,6 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
-Version:  7.20
+Version:  7.21
 Release:  1%{?dist}
 Summary: An open-source content-management platform
 
@@ -20,7 +20,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: php, php-gd, php-mbstring, wget, php-pdo, php-xml
 
 %description
-Equipped with a powerful blend of features, Drupal is a Content Management 
+Equipped with a powerful blend of features, Drupal is a Content Management
 System written in PHP that can support a variety of websites ranging from
 personal weblogs to large community-driven websites.  Drupal is highly
 configurable, skinnable, and secure.
@@ -70,9 +70,9 @@ rm -rf %{buildroot}
 %doc COPYRIGHT.txt README.txt example.sites.php
 %{drupaldir}
 %exclude %{drupaldir}/CHANGELOG.txt
-%exclude %{drupaldir}/INSTALL* 
-%exclude %{drupaldir}/LICENSE* 
-%exclude %{drupaldir}/MAINTAINERS.txt 
+%exclude %{drupaldir}/INSTALL*
+%exclude %{drupaldir}/LICENSE*
+%exclude %{drupaldir}/MAINTAINERS.txt
 %exclude %{drupaldir}/UPGRADE.txt
 %exclude %{drupaldir}/COPYRIGHT.txt
 %exclude %{drupaldir}/README.txt
@@ -88,6 +88,9 @@ rm -rf %{buildroot}
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/default/
 
 %changelog
+* Thu Mar 7 2013 Peter Borsa <peter.borsa@gmail.com> - 7.21-1
+- 7.21
+
 * Thu Feb 21 2013 Paul W. Frields <stickster@gmail.com> - 7.20-1
 - 7.20, SA-CORE-2013-002 (#913403)
 
