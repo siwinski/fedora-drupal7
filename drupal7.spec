@@ -1,7 +1,7 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
 Version:  7.21
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -12,6 +12,7 @@ Source1: %{name}.conf
 Source2: %{name}-README.fedora
 Source3: %{name}-cron
 Source4: %{name}-files-migrator.sh
+Source5: macros.%{name}
 Patch0:  %{name}-7.4-scripts-noshebang.patch
 Patch1:  drupal-7.14-CVE-2012-2922.patch
 
@@ -24,6 +25,13 @@ Equipped with a powerful blend of features, Drupal is a Content Management
 System written in PHP that can support a variety of websites ranging from
 personal weblogs to large community-driven websites.  Drupal is highly
 configurable, skinnable, and secure.
+
+%package rpmbuild
+Summary: Rpmbuild files for %{name}
+Group:   Development/Tools
+
+%description rpmbuild
+%{summary}.
 
 %prep
 
@@ -61,6 +69,9 @@ mv %{buildroot}%{drupaldir}/.htaccess %{buildroot}%{_sysconfdir}/httpd/conf.d/dr
 ln -s ../../../%{_sysconfdir}/httpd/conf.d/drupal7-site.htaccess %{buildroot}%{drupaldir}/.htaccess
 mv %{buildroot}%{_sysconfdir}/%{name}/example.sites.php .
 
+mkdir -p %{buildroot}%{_sysconfdir}/rpm/
+install -m0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/rpm/macros.drupal7
+
 %clean
 rm -rf %{buildroot}
 
@@ -77,6 +88,7 @@ rm -rf %{buildroot}
 %exclude %{drupaldir}/COPYRIGHT.txt
 %exclude %{drupaldir}/README.txt
 %dir %{_sysconfdir}/%{name}
+%{_sysconfdir}/rpm/macros.drupal7
 %config(noreplace) %{_sysconfdir}/%{name}/all
 %exclude %{_sysconfdir}/%{name}/README.txt
 %config(noreplace) %{_sysconfdir}/%{name}/default
@@ -86,6 +98,10 @@ rm -rf %{buildroot}
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/
 %dir %attr(775,root,apache) %{_localstatedir}/lib/%{name}/files/default/
+
+%files rpmbuild
+%defattr(-,root,root,-)
+%{_sysconfdir}/rpm/macros.drupal7
 
 %changelog
 * Thu Mar 7 2013 Peter Borsa <peter.borsa@gmail.com> - 7.21-1
