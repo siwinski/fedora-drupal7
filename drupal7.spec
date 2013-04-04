@@ -1,7 +1,7 @@
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
-Version:  7.21
-Release:  2%{?dist}
+Version:  7.22
+Release:  1%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -104,6 +104,9 @@ rm -rf %{buildroot}
 %{_sysconfdir}/rpm/macros.drupal7
 
 %changelog
+* Thu Apr 4 2013 Peter Borsa <peter.borsa@gmail.com> - 7.22-1
+- 7.22
+
 * Thu Mar 7 2013 Peter Borsa <peter.borsa@gmail.com> - 7.21-1
 - 7.21
 
