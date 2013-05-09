@@ -4,7 +4,7 @@ AutoReqProv: no
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
 Version:  7.22
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -78,9 +78,9 @@ mv %{buildroot}%{_sysconfdir}/%{name}/example.sites.php .
 # rpmbuild
 mkdir -p %{buildroot}%{_sysconfdir}/rpm/
 install -pm0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/rpm/macros.drupal7
-mkdir -p %{buildroot}%{_rpmconfigdir}/fileattrs
-install -pm0644 %{SOURCE6} %{buildroot}%{_rpmconfigdir}/fileattrs/
-install -pm0755 %{SOURCE7} %{buildroot}%{_rpmconfigdir}/
+mkdir -p %{buildroot}%{_prefix}/lib/rpm/fileattrs
+install -pm0644 %{SOURCE6} %{buildroot}%{_prefix}/lib/rpm/fileattrs/
+install -pm0755 %{SOURCE7} %{buildroot}%{_prefix}/lib/rpm/
 
 %clean
 rm -rf %{buildroot}
@@ -112,10 +112,13 @@ rm -rf %{buildroot}
 %files rpmbuild
 %defattr(-,root,root,-)
 %{_sysconfdir}/rpm/macros.drupal7
-%{_rpmconfigdir}/fileattrs/%{name}.attr
-%{_rpmconfigdir}/%{name}.prov
+%{_prefix}/lib/rpm/fileattrs/%{name}.attr
+%{_prefix}/lib/rpm/%{name}.prov
 
 %changelog
+* Thu May 09 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-3
+- Change rpmconfigdir to %{_prefix}/lib/rpm to support EL-5.
+
 * Thu May 09 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-2
 - Add libraries directory and macro, BZ 959687.
 - Add auto-provides, BZ 959683.
