@@ -4,7 +4,7 @@ AutoReqProv: no
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
 Version:  7.22
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
