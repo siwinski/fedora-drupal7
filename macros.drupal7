@@ -1,3 +1,4 @@
 %drupal7          %{_datadir}/drupal7
 %drupal7_modules  %{drupal7}/modules
 %drupal7_themes   %{drupal7}/themes
+%drupal7_libraries  %{_sysconfdir}/drupal7/all/libraries

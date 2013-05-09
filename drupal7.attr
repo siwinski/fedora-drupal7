@@ -1,0 +1,2 @@
+%__drupal7_provides  %{_rpmconfigdir}/drupal7.prov
+%__drupal7_path      ^%{_datadir}/drupal7/(modules|profiles|themes)/

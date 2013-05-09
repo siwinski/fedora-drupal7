@@ -1,3 +1,6 @@
+# Disable automatic requires/provides processing
+AutoReqProv: no
+
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
 Version:  7.22
@@ -5,7 +8,7 @@ Release:  1%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
-License: GPLv2+ and BSD
+License: GPLv2+ and BSD and MIT
 URL: http://www.drupal.org
 Source0: http://ftp.osuosl.org/pub/drupal/files/projects/drupal-%{version}.tar.gz
 Source1: %{name}.conf
@@ -13,6 +16,8 @@ Source2: %{name}-README.fedora
 Source3: %{name}-cron
 Source4: %{name}-files-migrator.sh
 Source5: macros.%{name}
+Source6: %{name}.attr
+Source7: %{name}.prov
 Patch0:  %{name}-7.4-scripts-noshebang.patch
 Patch1:  drupal-7.14-CVE-2012-2922.patch
 
@@ -56,6 +61,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/httpd/conf.d
 cp -pr %SOURCE1 %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
 mv %{buildroot}%{drupaldir}/sites/* %{buildroot}%{_sysconfdir}/%{name}
+mkdir -p %{buildroot}%{_sysconfdir}/%{name}/all/libraries
 rmdir %{buildroot}%{drupaldir}/sites
 ln -s ../../..%{_sysconfdir}/%{name} %{buildroot}%{drupaldir}/sites
 mkdir -p %{buildroot}%{_docdir}
@@ -69,8 +75,12 @@ mv %{buildroot}%{drupaldir}/.htaccess %{buildroot}%{_sysconfdir}/httpd/conf.d/dr
 ln -s ../../../%{_sysconfdir}/httpd/conf.d/drupal7-site.htaccess %{buildroot}%{drupaldir}/.htaccess
 mv %{buildroot}%{_sysconfdir}/%{name}/example.sites.php .
 
+# rpmbuild
 mkdir -p %{buildroot}%{_sysconfdir}/rpm/
-install -m0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/rpm/macros.drupal7
+install -pm0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/rpm/macros.drupal7
+mkdir -p %{buildroot}%{_rpmconfigdir}/fileattrs
+install -pm0644 %{SOURCE6} %{buildroot}%{_rpmconfigdir}/fileattrs/
+install -pm0755 %{SOURCE7} %{buildroot}%{_rpmconfigdir}/
 
 %clean
 rm -rf %{buildroot}
@@ -102,8 +112,14 @@ rm -rf %{buildroot}
 %files rpmbuild
 %defattr(-,root,root,-)
 %{_sysconfdir}/rpm/macros.drupal7
+%{_rpmconfigdir}/fileattrs/%{name}.attr
+%{_rpmconfigdir}/%{name}.prov
 
 %changelog
+* Thu May 09 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-2
+- Add libraries directory and macro, BZ 959687.
+- Add auto-provides, BZ 959683.
+
 * Thu Apr 4 2013 Peter Borsa <peter.borsa@gmail.com> - 7.22-1
 - 7.22
 
