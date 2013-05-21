@@ -4,7 +4,7 @@ AutoReqProv: no
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
 Version:  7.22
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -18,6 +18,8 @@ Source4: %{name}-files-migrator.sh
 Source5: macros.%{name}
 Source6: %{name}.attr
 Source7: %{name}.prov
+Source8: macros.%{name}.rpm-lt-4-9-compat
+Source9: %{name}.prov.rpm-lt-4-9-compat
 Patch0:  %{name}-7.4-scripts-noshebang.patch
 Patch1:  drupal-7.14-CVE-2012-2922.patch
 
@@ -76,11 +78,20 @@ ln -s ../../../%{_sysconfdir}/httpd/conf.d/drupal7-site.htaccess %{buildroot}%{d
 mv %{buildroot}%{_sysconfdir}/%{name}/example.sites.php .
 
 # rpmbuild
+# RPM >= 4.9
+%if 0%{?_fileattrsdir:1}
 mkdir -p %{buildroot}%{_sysconfdir}/rpm/
-install -pm0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/rpm/macros.drupal7
+install -pm0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/rpm/macros.%{name}
 mkdir -p %{buildroot}%{_prefix}/lib/rpm/fileattrs
-install -pm0644 %{SOURCE6} %{buildroot}%{_prefix}/lib/rpm/fileattrs/
-install -pm0755 %{SOURCE7} %{buildroot}%{_prefix}/lib/rpm/
+install -pm0644 %{SOURCE6} %{buildroot}%{_prefix}/lib/rpm/fileattrs/%{name}.attr
+install -pm0755 %{SOURCE7} %{buildroot}%{_prefix}/lib/rpm/%{name}.prov
+# RPM < 4.9
+%else
+mkdir -p %{buildroot}%{_sysconfdir}/rpm/
+install -pm0644 %{SOURCE8} %{buildroot}%{_sysconfdir}/rpm/macros.%{name}
+mkdir -p %{buildroot}%{_prefix}/lib/rpm/
+install -pm0755 %{SOURCE9} %{buildroot}%{_prefix}/lib/rpm/%{name}.prov
+%endif
 
 %clean
 rm -rf %{buildroot}
@@ -112,10 +123,13 @@ rm -rf %{buildroot}
 %files rpmbuild
 %defattr(-,root,root,-)
 %{_sysconfdir}/rpm/macros.drupal7
-%{_prefix}/lib/rpm/fileattrs/%{name}.attr
+%{?_fileattrsdir:%{_prefix}/lib/rpm/fileattrs/%{name}.attr}
 %{_prefix}/lib/rpm/%{name}.prov
 
 %changelog
+* Tue May 21 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-4
+- Allow use of auto-provides <EL-6.
+
 * Thu May 09 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-3
 - Change rpmconfigdir to %{_prefix}/lib/rpm to support EL-5.
 
