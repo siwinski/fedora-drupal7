@@ -26,6 +26,7 @@ Parsed from *.info files.
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
+import subprocess
 import sys
 import os
 
@@ -36,6 +37,10 @@ def main():
     for path in paths:
         if path.endswith('.info'):
             print 'drupal7(' + os.path.basename(path)[:-len('.info')] + ')'
+
+    # Invoke the regular RPM provides generator to allow compatibility with RPM < 4.9 (no fileattrs)
+    p = subprocess.Popen(['/usr/lib/rpm/find-provides'], stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+    print p.communicate(input='\n'.join(paths))[0]
 
 
 if __name__ == '__main__':

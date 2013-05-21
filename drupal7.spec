@@ -4,7 +4,7 @@ AutoReqProv: no
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
 Version:  7.22
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -20,6 +20,8 @@ Source6: %{name}.attr
 Source7: %{name}.prov
 Patch0:  %{name}-7.4-scripts-noshebang.patch
 Patch1:  drupal-7.14-CVE-2012-2922.patch
+# Allow compatibility with RPM < 4.9 (no fileattrs)
+%{!?_fileattrsdir:Patch2: %{name}-rpm-no-fileattrs.patch}
 
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -44,6 +46,11 @@ Group:   Development/Tools
 
 %patch0 -p1
 %patch1 -p0
+
+# Allow compatibility with RPM < 4.9 (no fileattrs)
+cp %{SOURCE5} .
+cp %{SOURCE7} .
+%{!?_fileattrsdir:%patch2}
 
 chmod -x scripts/drupal.sh
 chmod -x scripts/password-hash.sh
@@ -77,10 +84,10 @@ mv %{buildroot}%{_sysconfdir}/%{name}/example.sites.php .
 
 # rpmbuild
 mkdir -p %{buildroot}%{_sysconfdir}/rpm/
-install -pm0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/rpm/macros.drupal7
+install -pm0644 macros.%{name} %{buildroot}%{_sysconfdir}/rpm/macros.drupal7
 mkdir -p %{buildroot}%{_prefix}/lib/rpm/fileattrs
 install -pm0644 %{SOURCE6} %{buildroot}%{_prefix}/lib/rpm/fileattrs/
-install -pm0755 %{SOURCE7} %{buildroot}%{_prefix}/lib/rpm/
+install -pm0755 %{name}.prov %{buildroot}%{_prefix}/lib/rpm/
 
 %clean
 rm -rf %{buildroot}
@@ -97,6 +104,8 @@ rm -rf %{buildroot}
 %exclude %{drupaldir}/UPGRADE.txt
 %exclude %{drupaldir}/COPYRIGHT.txt
 %exclude %{drupaldir}/README.txt
+%exclude %{drupaldir}/macros.%{name}
+%exclude %{drupaldir}/%{name}.prov
 %dir %{_sysconfdir}/%{name}
 %{_sysconfdir}/rpm/macros.drupal7
 %config(noreplace) %{_sysconfdir}/%{name}/all
@@ -116,6 +125,9 @@ rm -rf %{buildroot}
 %{_prefix}/lib/rpm/%{name}.prov
 
 %changelog
+* Tue May 21 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-4
+- Apply patches to allow auto-provides usage <EL-6
+
 * Thu May 09 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-3
 - Change rpmconfigdir to %{_prefix}/lib/rpm to support EL-5.
 
