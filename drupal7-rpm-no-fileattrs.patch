@@ -1,0 +1,39 @@
+diff --git drupal7.prov drupal7.prov
+index 5495296..c11cafb 100644
+--- drupal7.prov
++++ drupal7.prov
+@@ -26,6 +26,7 @@ Parsed from *.info files.
+ # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ # IN THE SOFTWARE.
+ 
++import subprocess
+ import sys
+ import os
+ 
+@@ -37,6 +38,10 @@ def main():
+         if path.endswith('.info'):
+             print 'drupal7(' + os.path.basename(path)[:-len('.info')] + ')'
+ 
++    # Invoke the regular RPM provides generator to allow compatibility with RPM < 4.9 (no fileattrs)
++    p = subprocess.Popen(['/usr/lib/rpm/find-provides'], stdout=subprocess.PIPE, stdin=subprocess.PIPE)
++    print p.communicate(input='\n'.join(paths))[0]
++
+ 
+ if __name__ == '__main__':
+     main()
+diff --git macros.drupal7 macros.drupal7
+index 920d2c0..9641013 100644
+--- macros.drupal7
++++ macros.drupal7
+@@ -3,5 +3,9 @@
+ %drupal7_themes   %{drupal7}/themes
+ %drupal7_libraries  %{_sysconfdir}/drupal7/all/libraries
+ 
+-# No-op macro to allow spec compatibility with RPM < 4.9 (no fileattrs)
+-%drupal7_find_provides_and_requires %{nil}
++# Macro to allow spec compatibility with RPM < 4.9 (no fileattrs)
++%drupal7_find_provides_and_requires %{expand: \
++%global _use_internal_dependency_generator 0
++%global __find_provides %{_rpmconfigdir}/drupal7.prov
++%global __find_requires %{_rpmconfigdir}/drupal7.req
++}
