@@ -20,12 +20,71 @@ Source6: %{name}.attr
 Source7: %{name}.prov
 Source8: macros.%{name}.rpm-lt-4-9-compat
 Source9: %{name}.prov.rpm-lt-4-9-compat
+Source10: %{name}.req
+Source11: %{name}.req.rpm-lt-4-9-compat
 Patch0:  %{name}-7.4-scripts-noshebang.patch
 Patch1:  drupal-7.14-CVE-2012-2922.patch
 
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: php, php-gd, php-mbstring, wget, php-pdo, php-xml
+
+# Virtual provides
+## Core
+Provides: drupal7(core) = %{version}
+## Modules
+Provides: drupal7(aggregator) = %{version}
+Provides: drupal7(block) = %{version}
+Provides: drupal7(blog) = %{version}
+Provides: drupal7(book) = %{version}
+Provides: drupal7(color) = %{version}
+Provides: drupal7(comment) = %{version}
+Provides: drupal7(contact) = %{version}
+Provides: drupal7(contextual) = %{version}
+Provides: drupal7(dashboard) = %{version}
+Provides: drupal7(dblog) = %{version}
+Provides: drupal7(field_sql_storage) = %{version}
+Provides: drupal7(field_ui) = %{version}
+Provides: drupal7(field) = %{version}
+Provides: drupal7(file) = %{version}
+Provides: drupal7(filter) = %{version}
+Provides: drupal7(forum) = %{version}
+Provides: drupal7(help) = %{version}
+Provides: drupal7(image) = %{version}
+Provides: drupal7(list) = %{version}
+Provides: drupal7(locale) = %{version}
+Provides: drupal7(menu) = %{version}
+Provides: drupal7(node) = %{version}
+Provides: drupal7(number) = %{version}
+Provides: drupal7(openid) = %{version}
+Provides: drupal7(options) = %{version}
+Provides: drupal7(overlay) = %{version}
+Provides: drupal7(path) = %{version}
+Provides: drupal7(php) = %{version}
+Provides: drupal7(poll) = %{version}
+Provides: drupal7(rdf) = %{version}
+Provides: drupal7(search) = %{version}
+Provides: drupal7(shortcut) = %{version}
+Provides: drupal7(simpletest) = %{version}
+Provides: drupal7(statistics) = %{version}
+Provides: drupal7(syslog) = %{version}
+Provides: drupal7(system) = %{version}
+Provides: drupal7(taxonomy) = %{version}
+Provides: drupal7(text) = %{version}
+Provides: drupal7(toolbar) = %{version}
+Provides: drupal7(tracker) = %{version}
+Provides: drupal7(translation) = %{version}
+Provides: drupal7(trigger) = %{version}
+Provides: drupal7(update) = %{version}
+Provides: drupal7(user) = %{version}
+## Themes
+Provides: drupal7(bartik) = %{version}
+Provides: drupal7(garland) = %{version}
+Provides: drupal7(seven) = %{version}
+Provides: drupal7(stark) = %{version}emes
+## Profiles
+Provides: drupal7(minimal) = %{version}
+Provides: drupal7(standard) = %{version}
 
 %description
 Equipped with a powerful blend of features, Drupal is a Content Management
@@ -41,7 +100,6 @@ Group:   Development/Tools
 %{summary}.
 
 %prep
-
 %setup -q -n drupal-%{version}
 
 %patch0 -p1
@@ -85,12 +143,14 @@ install -pm0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/rpm/macros.%{name}
 mkdir -p %{buildroot}%{_prefix}/lib/rpm/fileattrs
 install -pm0644 %{SOURCE6} %{buildroot}%{_prefix}/lib/rpm/fileattrs/%{name}.attr
 install -pm0755 %{SOURCE7} %{buildroot}%{_prefix}/lib/rpm/%{name}.prov
+install -pm0755 %{SOURCE10} %{buildroot}%{_prefix}/lib/rpm/%{name}.req
 # RPM < 4.9
 %else
 mkdir -p %{buildroot}%{_sysconfdir}/rpm/
 install -pm0644 %{SOURCE8} %{buildroot}%{_sysconfdir}/rpm/macros.%{name}
 mkdir -p %{buildroot}%{_prefix}/lib/rpm/
 install -pm0755 %{SOURCE9} %{buildroot}%{_prefix}/lib/rpm/%{name}.prov
+install -pm0755 %{SOURCE11} %{buildroot}%{_prefix}/lib/rpm/%{name}.req
 %endif
 
 %clean
@@ -125,13 +185,14 @@ rm -rf %{buildroot}
 %{_sysconfdir}/rpm/macros.drupal7
 %{?_fileattrsdir:%{_prefix}/lib/rpm/fileattrs/%{name}.attr}
 %{_prefix}/lib/rpm/%{name}.prov
+%{_prefix}/lib/rpm/%{name}.req
 
 %changelog
 * Tue May 21 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-4
-- Allow use of auto-provides <EL-6.
+- Allow use of auto-provides <= EL-6.
 
 * Thu May 09 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-3
-- Change rpmconfigdir to %{_prefix}/lib/rpm to support EL-5.
+- Change rpmconfigdir to %%{_prefix}/lib/rpm to support EL-5.
 
 * Thu May 09 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-2
 - Add libraries directory and macro, BZ 959687.
