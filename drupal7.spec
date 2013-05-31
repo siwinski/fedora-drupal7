@@ -81,7 +81,7 @@ Provides: drupal7(user) = %{version}
 Provides: drupal7(bartik) = %{version}
 Provides: drupal7(garland) = %{version}
 Provides: drupal7(seven) = %{version}
-Provides: drupal7(stark) = %{version}emes
+Provides: drupal7(stark) = %{version}
 ## Profiles
 Provides: drupal7(minimal) = %{version}
 Provides: drupal7(standard) = %{version}
