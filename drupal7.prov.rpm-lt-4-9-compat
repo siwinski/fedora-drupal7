@@ -4,6 +4,8 @@
 Automatic provides generator for Drupal 7 modules, profiles, and themes.
 
 Parsed from *.info files.
+
+First command line argument is used as version if provided.
 """
 
 # Copyright 2013 Shawn Iwinski <shawn.iwinski@gmail.com>
@@ -26,17 +28,26 @@ Parsed from *.info files.
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
+import re
 import subprocess
 import sys
 import os
 
 
+RE_HIDDEN = re.compile(r'hidden\s*=\s*TRUE', re.IGNORECASE)
+
+
 def main():
-    paths = [path.rstrip() for path in sys.stdin.readlines()]
+    version = sys.argv[1] if len(sys.argv) > 1 else None
+    paths   = [path.rstrip() for path in sys.stdin.readlines()]
 
     for path in paths:
-        if path.endswith('.info'):
-            print 'drupal7(' + os.path.basename(path)[:-len('.info')] + ')'
+        if path.endswith('.info') and not re.search(RE_HIDDEN, open(path).read()):
+            print 'drupal7(' + os.path.basename(path)[:-len('.info')] + ')',
+            if version is not None:
+                print '=', version
+            else:
+                print ''
 
     # Invoke the regular RPM provides generator to allow compatibility with RPM < 4.9 (no fileattrs)
     p = subprocess.Popen(['/usr/lib/rpm/find-provides'], stdout=subprocess.PIPE, stdin=subprocess.PIPE)

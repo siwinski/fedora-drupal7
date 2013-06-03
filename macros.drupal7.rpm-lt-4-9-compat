@@ -1,10 +1,11 @@
-%drupal7          %{_datadir}/drupal7
-%drupal7_modules  %{drupal7}/modules
-%drupal7_themes   %{drupal7}/themes
+%drupal7            %{_datadir}/drupal7
+%drupal7_modules    %{drupal7}/modules
+%drupal7_themes     %{drupal7}/themes
 %drupal7_libraries  %{_sysconfdir}/drupal7/all/libraries
 
 # Macro to allow spec compatibility with RPM < 4.9 (no fileattrs)
 %drupal7_find_provides_and_requires %{expand: \
 %global _use_internal_dependency_generator 0
-%global __find_provides %{_rpmconfigdir}/drupal7.prov
+%global __find_provides %{_rpmconfigdir}/drupal7.prov %{version}
+%global __find_requires %{_rpmconfigdir}/drupal7.req
 }

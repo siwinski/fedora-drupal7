@@ -1,2 +1,3 @@
-%__drupal7_provides  %{_prefix}/lib/rpm/drupal7.prov
+%__drupal7_provides  %{_prefix}/lib/rpm/drupal7.prov %{version}
+%__drupal7_requires  %{_prefix}/lib/rpm/drupal7.req
 %__drupal7_path      ^%{_datadir}/drupal7/(modules|profiles|themes)/
