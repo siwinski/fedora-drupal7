@@ -4,7 +4,7 @@ AutoReqProv: no
 %define drupaldir %{_datadir}/drupal7
 Name: drupal7
 Version:  7.22
-Release:  5%{?dist}
+Release:  6%{?dist}
 Summary: An open-source content-management platform
 
 Group: Applications/Publishing
@@ -188,6 +188,9 @@ rm -rf %{buildroot}
 %{_prefix}/lib/rpm/%{name}.req
 
 %changelog
+* Tue Jun 18 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-6
+- Add AllowOverride All to drupal7.conf, BZ 905912.
+
 * Mon Jun 01 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-5
 - Add auto-requires, BZ 969593.
 
