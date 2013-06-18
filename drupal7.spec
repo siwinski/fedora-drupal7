@@ -191,7 +191,7 @@ rm -rf %{buildroot}
 * Tue Jun 18 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-6
 - Add AllowOverride All to drupal7.conf, BZ 905912.
 
-* Mon Jun 01 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-5
+* Mon Jun 03 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-5
 - Add auto-requires, BZ 969593.
 
 * Tue May 21 2013 Jon Ciesla <limburgher@gmail.com> - 7.22-4
@@ -234,7 +234,7 @@ rm -rf %{buildroot}
 * Tue Oct 30 2012 Jon Ciesla <limburgher@gmail.com> - 7.16-2
 - Fix for httpd 2.4, BZ 871394.
 
-* Wed Oct 16 2012 Orion Poplawski <orion@cora.nwra.com> - 7.16-1
+* Wed Oct 17 2012 Orion Poplawski <orion@cora.nwra.com> - 7.16-1
 - New upstream - SA-CORE-2012-003 security update
 
 * Wed Aug 1 2012 Peter Borsa <peter.borsa@gmail.com> - 7.15-1
